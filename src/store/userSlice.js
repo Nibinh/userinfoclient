@@ -19,9 +19,12 @@ export const fetchUsers = createAsyncThunk(
   "users/fetchUsers",
   async ({ sort, role, page }) => {
     try {
-      const response = await axios.get(`http://localhost:8000/user/get`, {
-        params: { sort: sort, role: role, page: page },
-      });
+      const response = await axios.get(
+        `https://userinfo-server.onrender.com/user/get`,
+        {
+          params: { sort: sort, role: role, page: page },
+        }
+      );
       return response.data.users;
     } catch (err) {
       console.log(err.response);
@@ -33,7 +36,7 @@ export const fetchUsers = createAsyncThunk(
 export const addUsers = createAsyncThunk("users/addUsers", async (values) => {
   try {
     const response = await axios.post(
-      "http://localhost:8000/user/register",
+      "https://userinfo-server.onrender.com/user/register",
       values
     );
     console.log(response);
@@ -47,7 +50,7 @@ export const addUsers = createAsyncThunk("users/addUsers", async (values) => {
 export const deleteUsers = createAsyncThunk("users/deleteUsers", async (id) => {
   try {
     const response = await axios.delete(
-      "http://localhost:8000/user/delete/" + id
+      "https://userinfo-server.onrender.com/user/delete/" + id
     );
     console.log(response);
     return response.data;
