@@ -47,7 +47,8 @@ function Tablee() {
   const loading = useSelector((state) => state.users.loading);
   const addMsg = useSelector((state) => state.users.addMsg);
   const userDltMsg = useSelector((state) => state.users.userDeleteMsg);
-  console.log(userDltMsg);
+  const search = useSelector((state) => state.users.searchUsers);
+  console.log(search);
 
   const [open, setOpen] = React.useState(false);
 
@@ -57,14 +58,14 @@ function Tablee() {
   });
 
   useEffect(() => {
-    dispatch(fetchUsers({ sort, role, page }));
+    dispatch(fetchUsers({ sort, role, page, search }));
     if (userDltMsg) {
       setOpen(true);
       setTimeout(() => {
         setOpen(false);
       }, 1000);
     }
-  }, [dispatch, role, sort, page, addMsg, userDltMsg]);
+  }, [dispatch, role, sort, page, addMsg, userDltMsg, search]);
 
   // if (loading === "pending") {
   //   return <div>Loading...</div>;

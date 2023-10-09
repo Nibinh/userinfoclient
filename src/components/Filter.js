@@ -52,6 +52,7 @@ function Filter() {
         <MenuItem onClick={() => handleMenuItemClick("tester")}>
           Tester
         </MenuItem>
+        <MenuItem onClick={() => handleMenuItemClick("")}>All</MenuItem>
       </Menu>
     </div>
   );

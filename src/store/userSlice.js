@@ -11,20 +11,19 @@ const initialState = {
   addUserMsg: "",
   addUserErrMsg: "",
   userDeleteMsg: "",
+  searchUsers: "",
 };
 
-// const GET_USER_URL = `http://localhost:8000/user/get`;
+// const GET_USER_URL = `http://localhost:8000`;
+const GET_USER_URL = `https://userinfo-server.onrender.com`;
 
 export const fetchUsers = createAsyncThunk(
   "users/fetchUsers",
-  async ({ sort, role, page }) => {
+  async ({ sort, role, page, search }) => {
     try {
-      const response = await axios.get(
-        `https://userinfo-server.onrender.com/user/get`,
-        {
-          params: { sort: sort, role: role, page: page },
-        }
-      );
+      const response = await axios.get(`${GET_USER_URL}/user/get`, {
+        params: { sort: sort, role: role, page: page, search: search },
+      });
       return response.data.users;
     } catch (err) {
       console.log(err.response);
@@ -35,10 +34,7 @@ export const fetchUsers = createAsyncThunk(
 
 export const addUsers = createAsyncThunk("users/addUsers", async (values) => {
   try {
-    const response = await axios.post(
-      "https://userinfo-server.onrender.com/user/register",
-      values
-    );
+    const response = await axios.post(`${GET_USER_URL}/user/register`, values);
     console.log(response);
     return response.data;
   } catch (err) {
@@ -49,9 +45,7 @@ export const addUsers = createAsyncThunk("users/addUsers", async (values) => {
 
 export const deleteUsers = createAsyncThunk("users/deleteUsers", async (id) => {
   try {
-    const response = await axios.delete(
-      "https://userinfo-server.onrender.com/user/delete/" + id
-    );
+    const response = await axios.delete(`${GET_USER_URL}/user/delete/` + id);
     console.log(response);
     return response.data;
   } catch (err) {
@@ -81,6 +75,9 @@ const getUserSlice = createSlice({
     },
     userDeleteMsge(state, action) {
       state.userDeleteMsg = "";
+    },
+    userSearch(state, action) {
+      state.searchUsers = action.payload;
     },
   },
   extraReducers(builder) {
@@ -124,5 +121,6 @@ export const {
   userMsgAdd,
   userErrMsgAdd,
   userDeleteMsge,
+  userSearch,
 } = getUserSlice.actions;
 export default getUserSlice.reducer;
