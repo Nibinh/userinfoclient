@@ -8,6 +8,7 @@ import Tooltip from "@mui/material/Tooltip";
 
 function DeleteUser({ id }) {
   const dispatch = useDispatch();
+
   const handleClick = () => {
     dispatch(deleteUsers(id));
     setTimeout(() => {

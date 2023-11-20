@@ -2,11 +2,12 @@ import React from "react";
 import Pagination from "@mui/material/Pagination";
 import Stack from "@mui/material/Stack";
 import { pageAdded } from "../store/userSlice";
-import { UseSelector, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function Paginationn() {
   const dispatch = useDispatch();
-  const page = useSelector((state) => state.users.page);
+  const pageNum = useSelector((state) => state.users.pageCount);
+  console.log(pageNum);
 
   const handleChange = (event, page) => {
     dispatch(pageAdded(page));
@@ -14,7 +15,7 @@ function Paginationn() {
   return (
     <div>
       <Stack spacing={2}>
-        <Pagination count={10} color="secondary" onChange={handleChange} />
+        <Pagination count={pageNum} color="secondary" onChange={handleChange} />
       </Stack>
     </div>
   );

@@ -12,6 +12,7 @@ const initialState = {
   addUserErrMsg: "",
   userDeleteMsg: "",
   searchUsers: "",
+  pageCount: "",
 };
 
 // const GET_USER_URL = `http://localhost:8000`;
@@ -24,7 +25,7 @@ export const fetchUsers = createAsyncThunk(
       const response = await axios.get(`${GET_USER_URL}/user/get`, {
         params: { sort: sort, role: role, page: page, search: search },
       });
-      return response.data.users;
+      return response.data;
     } catch (err) {
       console.log(err.response);
       throw new Error(err.response.data);
@@ -87,7 +88,9 @@ const getUserSlice = createSlice({
       })
       .addCase(fetchUsers.fulfilled, (state, action) => {
         state.loading = "fulfilled";
-        state.data = action.payload;
+        state.data = action.payload.users;
+        state.pageCount = action.payload.pageNum;
+        console.log(action.payload);
       })
       .addCase(fetchUsers.rejected, (state, action) => {
         state.loading = "rejected";

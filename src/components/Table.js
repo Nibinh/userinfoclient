@@ -48,7 +48,6 @@ function Tablee() {
   const addMsg = useSelector((state) => state.users.addMsg);
   const userDltMsg = useSelector((state) => state.users.userDeleteMsg);
   const search = useSelector((state) => state.users.searchUsers);
-  console.log(search);
 
   const [open, setOpen] = React.useState(false);
 
